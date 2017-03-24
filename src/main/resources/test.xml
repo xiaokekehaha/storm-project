@@ -1,0 +1,54 @@
+<kooxoo>
+	<service-name>test</service-name>
+	<parser name=" logparser" class="com.kuxun.fcs.App">
+		<patterns>
+			<pattern name="hello, parser1"> affab faafbafjf fajfjfsd ajfsjfsj rfafa n
+			</pattern>
+			<pattern name="hello, parser2"> affab</pattern>
+			<pattern> affab</pattern>
+		</patterns>
+	</parser>
+	<filter name="myfilter" class="com.kuxun.fcs.MyFilter1" />
+	<filter name="myfilter" class="com.kuxun.fcs.MyFilter2" />
+	<filter name="myfilter" class="com.kuxun.fcs.MyFilter3" />
+	<service name="hello, service" class="com.kuxun.fcs.Service">
+		<params>
+			<param name="serviceParam1">myServiceValue1</param>
+			<param>
+				<name>serviceParam2</name>
+				<value>myServiceValue2</value>
+			</param>
+		</params>
+	</service>
+	<spout name="hello, spout" class="com.kuxun.fcs.Spout"
+		parallelism="2">
+		<params>
+			<param name="spoutParam1">mySpoutParam1</param>
+			<param>
+				<name>hello,spout</name>
+				<value>mySpoutParam2</value>
+			</param>
+		</params>
+	</spout>
+	<logger>
+		<appender name="KOOXOO"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${storm.home}/logs/${service}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+				<fileNamePattern>${storm.home}/logs/${service}.%i
+				</fileNamePattern>
+				<minIndex>1</minIndex>
+				<maxIndex>9</maxIndex>
+			</rollingPolicy>
+
+			<triggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+				<maxFileSize>100MB</maxFileSize>
+			</triggeringPolicy>
+
+			<encoder>
+				<pattern>%d{yyyy-MM-dd HH:mm:ss} %c{1} [%p] %m%n</pattern>
+			</encoder>
+		</appender>
+	</logger>
+</kooxoo>
